@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services - WEEE</title>
+    <link rel="stylesheet" href="1.css">
+    <script defer src="1.js"></script>
+    <style>
+        body {
+            background: url('back.jpg') no-repeat center center fixed;
+            background-size: cover;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            text-align: center;
+            padding: 20px;
+            background: rgba(86, 182, 128, 0.9);
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            background: rgba(153, 189, 167, 0.95);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+        h1, h2 {
+            color: #1e2e25;
+            text-transform: uppercase;
+        }
+        p {
+            font-size: 18px;
+            color: #333;
+        }
+        .contact-info {
+            font-size: 20px;
+            font-weight: bold;
+            color: #2E8B57;
+            margin-top: 20px;
+            padding: 20px;
+            background: #e9f5e9;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        }
+        form {
+            text-align: left;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #2E8B57;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #1c6845;
+        }
+    
+    /* Success Animation Styles */
+    .success-animation {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(255, 255, 255, 0.95);
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+        animation: popIn 0.5s ease-out;
+    }
+
+    .sparkle {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background: gold;
+        border-radius: 50%;
+        animation: sparkleAnim 1s linear infinite;
+    }
+
+    @keyframes popIn {
+        0% { transform: translate(-50%, -50%) scale(0); }
+        50% { transform: translate(-50%, -50%) scale(1.2); }
+        100% { transform: translate(-50%, -50%) scale(1); }
+    }
+
+    @keyframes sparkleAnim {
+        0% { transform: scale(0) rotate(0deg); opacity: 0; }
+        50% { transform: scale(1) rotate(180deg); opacity: 1; }
+        100% { transform: scale(0) rotate(360deg); opacity: 0; }
+    }
+</style>
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Our Services</h1>
+    </header>
+    <div class="container">
+        <h2>Contact Us</h2>
+        <p>If you have any inquiries or need assistance with e-waste management, feel free to reach out.</p>
+        
+        <div class="contact-info">
+            <p>📞 Phone: +123-456-7890</p>
+            <p>📧 Email: support@weee.com</p>
+            <p>📍 Address: 123 Green Street, EcoCity, Earth</p>
+        </div>
+        
+        <h2>Client & Product Details</h2>
+        <form action="submit-form.php" method="POST">
+            <label for="name">Full Name:</label>
+            <input type="text" id="name" name="name" required>
+            
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" name="phone" required>
+            
+            <label for="product">Product Type:</label>
+            <input type="text" id="product" name="product" required>
+            
+            <label for="message">Additional Details:</label>
+            <textarea id="message" name="message" rows="4" required></textarea>
+            
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <div class="success-animation" id="successMessage">
+        <h2 style="color: #2E8B57;">✨ Successfully Submitted! ✨</h2>
+        <p>Thank you for contacting us!</p>
+    </div>
+    <script>
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Show success message
+            const successMessage = document.getElementById('successMessage');
+            successMessage.style.display = 'block';
+            
+            // Create sparkles
+            for(let i = 0; i < 10; i++) {
+                createSparkle();
+            }
+            
+            // Hide message after 3 seconds
+            setTimeout(() => {
+                successMessage.style.display = 'none';
+                // Optional: Reset form
+                this.reset();
+            }, 3000);
+        });
+    
+        function createSparkle() {
+            const sparkle = document.createElement('div');
+            sparkle.className = 'sparkle';
+            
+            // Random position around the success message
+            const angle = Math.random() * Math.PI * 2;
+            const distance = 100 + Math.random() * 50;
+            const x = Math.cos(angle) * distance;
+            const y = Math.sin(angle) * distance;
+            
+            sparkle.style.left = `calc(50% + ${x}px)`;
+            sparkle.style.top = `calc(50% + ${y}px)`;
+            
+            document.getElementById('successMessage').appendChild(sparkle);
+            
+            // Remove sparkle after animation
+            setTimeout(() => sparkle.remove(), 1000);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            background: url('back.jpg') no-repeat center center fixed;
+            background-size: cover;
+            text-align: center;
+            padding: 50px;
+        }
+        .profile-container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            width: 50%;
+            margin: auto;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            text-align: left;
+        }
+        .profile-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .profile-header img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 3px solid #2E8B57;
+        }
+        .profile-header h2 {
+            color: #2E8B57;
+            margin-top: 10px;
+        }
+        .profile-form {
+            font-size: 16px;
+            color: #333;
+            padding: 10px;
+        }
+        .profile-form input, .profile-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .profile-form button {
+            background-color: #2E8B57;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .profile-form button:hover {
+            background-color: #246a46;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <div class="profile-header">
+            <img id="profile-pic" src="user-photo.jpg" alt="User Photo">
+            <input type="file" id="photo-upload" accept="image/*" onchange="previewImage(event)">
+            <h2>User Profile</h2>
+        </div>
+        <form class="profile-form">
+            <label for="name"><strong>Full Name:</strong></label>
+            <input type="text" id="name" placeholder="Enter your full name" required>
+            
+            <label for="email"><strong>Email:</strong></label>
+            <input type="email" id="email" placeholder="Enter your email" required>
+            
+            <label for="phone"><strong>Contact Number:</strong></label>
+            <input type="tel" id="phone" placeholder="Enter your phone number" required>
+            
+            <label for="address"><strong>Address:</strong></label>
+            <textarea id="address" placeholder="Enter your address" rows="2" required></textarea>
+            
+            <label for="dob"><strong>Date of Birth:</strong></label>
+            <input type="date" id="dob" required>
+            
+            <label for="occupation"><strong>Occupation:</strong></label>
+            <input type="text" id="occupation" placeholder="Enter your occupation" required>
+            
+            <button type="submit">Save Profile</button>
+        </form>
+    </div>
+
+    <script>
+        function previewImage(event) {
+            var reader = new FileReader();
+            reader.onload = function(){
+                var output = document.getElementById('profile-pic');
+                output.src = reader.result;
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    </script>
+</body>
+</html>

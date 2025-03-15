@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - WEEE</title>
+    <link rel="stylesheet" href="1.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            background: url('back.jpg') no-repeat center center fixed;
+            background-size: cover;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            text-align: center;
+            padding: 20px;
+            background: rgba(117, 176, 143, 0.9);
+            color: rgb(87, 69, 69);
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            background: rgba(218, 231, 209, 0.95);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+        h1, h2 {
+            color: #102218;
+            text-transform: uppercase;
+        }
+        p {
+            font-size: 18px;
+            color: #333;
+        }
+        .highlight {
+            color: #FF5733;
+            font-weight: bold;
+        }
+        .stats {
+            font-size: 22px;
+            font-weight: bold;
+            color: #2E8B57;
+            margin-top: 20px;
+            padding: 20px;
+            background: #e9f5e9;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        }
+        .stats span {
+            font-size: 26px;
+            color: #d9534f;
+        }
+        .chart-container {
+            width: 60%;
+            margin: 30px auto;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>About Us</h1>
+    </header>
+    <div class="container">
+        <h2>Who We Are</h2>
+        <p><span class="highlight">WEEE</span> is dedicated to revolutionizing <span class="highlight">e-waste management</span> by providing <span class="highlight">innovative recycling solutions</span>. Our mission is to <span class="highlight">reduce electronic waste</span>, promote <span class="highlight">sustainability</span>, and create a cleaner planet for future generations.</p>
+        
+        <h2>Our Impact</h2>
+        <p>We have helped <span class="highlight">thousands of people</span> responsibly recycle their old electronics, ensuring they do not end up harming the environment.</p>
+        
+        <div class="stats">
+            <p>🌍 Over <span id="users-count">1,200,000</span> users have trusted <span class="highlight">WEEE</span>.</p>
+            <p>🔄 More than <span id="recycled-count">500,000</span> electronic items recycled.</p>
+        </div>
+
+        <div class="chart-container">
+            <canvas id="successChart"></canvas>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const ctx = document.getElementById('successChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['Recycled Electronics', 'Users Participated', 'Sustainability Projects'],
+                    datasets: [{
+                        data: [500000, 1200000, 250000],
+                        backgroundColor: ['#2E8B57', '#FF5733', '#3498DB'],
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
