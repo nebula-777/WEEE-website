@@ -3,87 +3,548 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Client Login - WEEE</title>
+    <title>WEEE - E-Waste Management</title>
     <link rel="stylesheet" href="1.css">
     <script defer src="1.js"></script>
     <style>
-        body {
-            background: url('back.jpg') no-repeat center center fixed;
-            background-size: cover;
-            font-family: Arial, sans-serif;
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
+        body {
+            background: url('back5.jpg') no-repeat center center fixed;
+            background-size: cover;
+            text-align: center;
+            padding: 50px;
+        }
+
+        /* Logo Animation */
+        .logo-animation {
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeOut 2.5s forwards;
+            z-index: 999;
+        }
+
+        .logo-animation img {
+            width: 200px;
+            height: auto;
+            animation: zoomIn 2s;
+        }
+
+        @keyframes zoomIn {
+            0% { transform: scale(0); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes fadeOut {
+            0% { opacity: 1; }
+            100% { opacity: 0; visibility: hidden; }
+        }
+        /* Sidebar Styling with Background Image */
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background: url('back.jpg') no-repeat center center;
+    background-size: cover;
+    position: fixed;
+    left: -250px;
+    top: 0;
+    transition: 0.4s;
+    padding-top: 20px;
+}
+
+/* Optional: Add a semi-transparent overlay for better readability */
+.sidebar::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Dark overlay */
+    z-index: -1;
+}
+
+/* Sidebar Active State */
+.sidebar.active {
+    left: 0;
+}
+
+/* Sidebar Profile */
+.profile {
+    text-align: center;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.profile img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 3px solid white;
+}
+
+/* Sidebar Links */
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    position: relative;
+    z-index: 1;
+}
+
+.sidebar ul li {
+    padding: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.sidebar ul li a {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+.sidebar ul li a i {
+    width: 25px;
+    text-align: center;
+    margin-right: 10px;
+}
+
+.sidebar ul li:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+        /* Navigation Bar */
+        nav {
+            background-color: #2E8B57;
+            padding: 15px;
+            text-align: center;
+            position: relative;
+            z-index: 100;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 15px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+
+        /* Center Logo */
         header {
             text-align: center;
             padding: 20px;
-            background: rgba(46, 139, 87, 0.9);
-            color: #e5e0e0;
-            font-size: 28px;
-            font-weight: bold;
+            margin-left: 80px;
         }
-        .container {
-            width: 40%;
-            margin: 50px auto;
-            background: rgba(255, 255, 255, 0.95);
-            padding: 30px;
+        .logo {
+            display: block;
+            margin: 0 auto;
+            width: 150px;
+        }
+
+        /* Content Box */
+        .content-box {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            margin: 20px auto;
+            width: 80%;
             border-radius: 10px;
-            box-shadow: 0px 0px 15px rgba(181, 130, 130, 0.3);
+            box-shadow: 0px 0px 10px rgba(29, 22, 22, 0.3);
             text-align: center;
         }
-        h2 {
+        .event-box {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+        }
+        .event, .news, .ceo {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .event img, .news img {
+            width: 200px;
+            height: auto;
+            border-radius: 10px;
+        }
+        .event-content, .news-content {
+            flex: 1;
+            padding-left: 20px;
+        }
+        .event h3, .news h3, .ceo h3 {
             color: #2E8B57;
         }
-        form {
-            text-align: left;
-            margin-top: 20px;
+        .event-buttons, .news-buttons {
+            margin-top: 10px;
         }
-        label {
+        .event-buttons a, .news-buttons a {
+            display: inline-block;
+            padding: 10px 15px;
+            margin: 5px;
+            color: white;
             font-weight: bold;
-            display: block;
-            margin-bottom: 5px;
-        }
-        input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
+            text-decoration: none;
             border-radius: 5px;
+            transition: all 0.3s ease;
         }
-        button {
+
+        .ceo img {
+            width: 450px; /* Reduced the image size */
+            height: auto;
+            border-radius: 10px;
+        }
+        .read-more {
+            background-color: #4682B4;
+        }
+        .read-more:hover {
+            background-color: #315f85;
+        }
+        .register {
+            background-color: #FF4500;
+        }
+        .register:hover {
+            background-color: #d13a00;
+        }
+
+        /* Footer Styling */
+.footer-box {
+    background-color: #2E8B57;
+    color: white;
+    padding: 40px 0;
+    margin-top: 50px;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    padding: 0 20px;
+    text-align: left;
+}
+
+.footer-section {
+    margin-bottom: 20px;
+}
+
+.footer-section h3 {
+    color: white;
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #4CAF50;
+    padding-bottom: 8px;
+}
+
+.footer-section p, .footer-section a {
+    color: #E8F5E9;
+    text-decoration: none;
+    line-height: 1.8;
+    transition: color 0.3s ease;
+}
+
+.footer-section a:hover {
+    color: #4CAF50;
+}
+
+.social-links {
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.social-links a {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 8px;
+    border-radius: 50%;
+    transition: background 0.3s ease;
+}
+
+.social-links a:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 20px;
+    margin-top: 40px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.quick-links {
+    list-style: none;
+    padding: 0;
+}
+
+.quick-links li {
+    margin-bottom: 10px;
+}
+
+        /* Sidebar Navigation */
+        .content {
+            margin-left: 50px;
+            padding: 20px;
+            width: 100%;
+            background-color: #f4f4f4;
+        }
+
+        .sidebar a {
+            padding: 15px 25px;
+            text-decoration: none;
+            font-size: 18px;
+            color: white;
+            display: block;
+            transition: 0.3s;
+            white-space: nowrap;
+        }
+
+        .sidebar a:hover {
+            background-color: #246B43;
+        }
+
+        .sidebar .close-btn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+        }
+
+        #menu-btn {
+            position: fixed;
+            left: 20px;
+            top: 20px;
+            z-index: 999;
+            font-size: 24px;
+            cursor: pointer;
             background-color: #2E8B57;
             color: white;
-            padding: 10px 20px;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            background: url('back5.jpg') no-repeat center center fixed;
+            background-size: cover;
+            text-align: center;
+            padding: 50px;
+        }
+        .home-container {
+            background: rgba(184, 220, 159, 0.9);
+            padding: 20px;
+            width: 60%;
+            margin: auto;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        .home-container h1 {
+            color: #2E8B57;
+            margin-bottom: 15px;
+        }
+        .home-container p {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .donate-btn {
+            background-color: #375225;
+            color: white;
+            padding: 12px 20px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            font-size: 16px;
-            width: 100%;
+            font-size: 18px;
+            text-decoration: none;
+            display: inline-block;
         }
-        button:hover {
-            background-color: #1c6845;
-        }
-        .register-link {
-            margin-top: 10px;
+        .donate-btn:hover {
+            background-color: #b3745c;
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Client Login</h1>
-    </header>
-    <div class="container">
-        <h2>Login to Your Account</h2>
-        <form action="login-handler.php" method="POST">
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-            
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
-            
-            <button type="submit">Login</button>
-        </form>
-        <p class="register-link">Don't have an account? <a href="register.html">Register here</a></p>
+    <!-- Logo Animation -->
+    <div class="logo-animation">
+        <img src="logo.jpg" alt="Company Logo">
     </div>
+    <button id="menu-btn" onclick="toggleSidebar()">☰</button>
+    <div id="mySidebar" class="sidebar">
+        <a href="javascript:void(0)" class="close-btn" onclick="toggleSidebar()">×</a>
+        <a href="login.html">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="services.html">Services</a>
+        <a href="contact.html">Contact</a>
+        <a href="profile.html">Profile</a>
+    </div>
+    <header>
+        <img src="logo.jpg" alt="WEEE Logo" class="logo">
+        <h1> WEEE - E-Waste Management</h1>
+    </header>
+    <section class="content-box">
+        <h2>Upcoming Events</h2>
+        <div class="event-box">
+            <div class="event">
+                <img src="event1.jpg" alt="E-Waste Summit">
+                <div class="event-content">
+                    <h3>🌍 Global E-Waste Awareness Summit</h3>
+                    <p>Date: March 15, 2025 | Location: New York, USA</p>
+                    <p>Join us in discussing the future of e-waste management and sustainability.</p>
+                    <div class="event-buttons">
+                        <a href="https://weee-forum.org/ws_news/when-the-world-goes-on-an-e-waste-hunt/?utm_source=chatgpt.com" 
+                           target="_blank" 
+                           class="read-more">Read More</a>
+                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfqrZ_F5s9mIv4qANXZPuoRpv7rgtA5BLYGRaJ7Tb6fnAhNEg/viewform?usp=dialog" 
+                           target="_blank" 
+                           class="register">Register Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="event-box">
+            <div class="event">
+                <img src="event2.jpg" alt="Recycling Drive">
+                <div class="event-content">
+                    <h3>♻️ WEEE Recycling Drive</h3>
+                    <p>Date: April 10, 2025 | Location: London, UK</p>
+                    <p>Drop off your old electronics and contribute to a greener planet.</p>
+                    <div class="event-buttons">
+                        <a href="https://www.thetimes.co.uk/article/vapocalypse-now-8m-vapes-go-unrecycled-each-week-6g5d5m28l?utm_source=chatgpt.com" 
+                           target="_blank" 
+                           class="read-more">Read More</a>
+                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSffwpaNHozH1mh9RvfIgEiezhJ9566ar2b8uMk9N5GcTCM_tQ/viewform?usp=dialog" 
+                           target="_blank" 
+                           class="register">Register Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>  
+    </section>
+    
+    <section class="content-box">
+        <h2>Latest News</h2>
+        <div class="news">
+            <img src="news.jpg" alt="News Update">
+            <div class="news-content">
+                <h3>New E-Waste Recycling Policies Announced</h3>
+                <p>The government has introduced new regulations to enhance e-waste recycling and reduce environmental impact.</p>
+                <div class="news-buttons">
+                    <a href="https://pib.gov.in/PressReleasePage.aspx?PRID=2040028&utm_source=chatgpt.com" 
+                       target="_blank" 
+                       class="read-more">Read More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content-box">
+        <h2>Meet Our CEO'S</h2>
+        <div class="ceo">
+            <img src="ceo3.jpg" alt="CEO Photo">
+            <div>
+                <h3>ANJALA N A, ALEENA V P,KEZIAH MARIAM RAISON,ALFIYA FATHIMA S S</h3>
+                <p>Meet the Visionary Leaders of WEEE - E-Waste Management
+                <ol type="1"> 
+
+                    WEEE is led by a team of dedicated and innovative CEOs who work together to revolutionize e-waste management and sustainability.
+                    Their shared mission is to reduce electronic waste, promote recycling, and drive technological advancements for a cleaner environment.  
+                    <ol type="1">
+                        <li><strong>Anjala N A</strong> – Chief Executive Officer (CEO) 
+                            Anjala N A is a visionary leader with over 10 years of experience in sustainable waste management.
+                            She has played a crucial role in developing eco-friendly disposal solutions and driving initiatives that align with global sustainability goals. 
+                            Under her leadership, WEEE has expanded its operations internationally and partnered with governments and corporations to enhance e-waste recycling programs.</li>  
+                            <li><strong>Aleena v p</strong> – Chief Operating Officer (COO)  
+                            Aleena v p ensures the smooth execution of operations within WEEE. Her expertise in logistics and supply chain management has helped streamline the collection, processing, and recycling of electronic waste.
+                            she has also introduced AI-powered waste sorting technologies to improve efficiency and minimize landfill contributions.</li>
+                            
+                            <li><strong>Keziah mariam raison</strong> – Chief Technology Officer (CTO)  
+                            Keziah mariam raison is responsible for innovation and research at WEEE. 
+                            With a background in environmental engineering and AI, she leads the development of smart recycling technologies that use machine learning to identify and sort e-waste efficiently.
+                            She also collaborates with tech companies to develop eco-friendly product designs that reduce waste generation.  </li>
+                            
+                            <li><strong>Alfiya fathima s s</strong> – Chief Sustainability Officer (CSO)  
+                            Alfiya fathima s s focuses on environmental policies and corporate responsibility.
+                            she advocates for green initiatives and works closely with governments to implement e-waste regulations.
+                            Her strategies have helped WEEE become a leader in ethical recycling, ensuring compliance with international standards and minimizing electronic pollution.  </li>
+                    </ol>
+                    Together, this leadership team is shaping the future of e-waste management, ensuring that discarded electronics are responsibly handled while creating a sustainable and eco-conscious society. 🚀♻️</p>
+            </div>
+        </div>
+        <div class="home-container" style="background: url('back3.jpg') no-repeat center center; background-size: cover;">
+            <h1>Welcome to E-Waste Donations</h1>
+            <p>Help us in our mission to recycle and dispose of electronic waste responsibly. Your contribution ensures a cleaner and greener planet for future generations.</p>
+            <a href="donation.html" class="donate-btn">Donate Here</a>
+        </div>
+    </section>
+    
+    <footer class="footer-box">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About WEEE</h3>
+                <p>Leading the way in e-waste management and sustainable recycling solutions. Together, we're building a cleaner, greener future.</p>
+            </div>
+    
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="quick-links">
+                    <li><a href="login.html">Home</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="donation.html">Donate</a></li>
+                </ul>
+            </div>
+    
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>⚲ 123 Green Street, EcoCity</p>
+                <p>✆ +123-456-7890</p>
+                <p>✉ support@weee.com</p>
+            </div>
+    
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <p>Follow us on social media for updates and news</p>
+                <div class="social-links">
+                    <a href="#" title="Facebook">ⓕ</a>
+                    <a href="#" title="Twitter">𝕏</a>
+                    <a href="#" title="Instagram">🅾</a>
+                    <a href="#" title="LinkedIn">🇮🇳</a>
+                </div>
+            </div>
+        </div>
+    
+        <div class="footer-bottom">
+            <p>&copy; 2025 WEEE - E-Waste Management | All Rights Reserved</p>
+            <p>Terms of Service | Privacy Policy | Sitemap</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById("mySidebar");
+            sidebar.classList.toggle("active");
+        }
+    </script>
 </body>
 </html>
